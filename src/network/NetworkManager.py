@@ -1,6 +1,7 @@
 from SocketServer import *
 from src.notify import NotifyManager
 from src.notify.NotifyGlobals import *
+from src.network import NetworkProtocol
 import threading
 
 class NetworkManager(ThreadingMixIn, TCPServer):
@@ -8,7 +9,7 @@ class NetworkManager(ThreadingMixIn, TCPServer):
 	notify = NotifyManager.Notifyer.setupNewClass('NetworkManager')
 	
 	def __init__(self, hostname, hostport):
-		TCPServer.__init__(self, (hostname, hostport), None)
+		TCPServer.__init__(self, (hostname, hostport), NetworkProtocol.NetworkProtocol)
 		self.hostname = hostname
 		self.hostport = hostport
 		self.process_running = False
